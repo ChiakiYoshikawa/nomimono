@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Company; //追記
 use Illuminate\Support\Facades\DB; //追記
+use App\Http\Requests\ProductRequest; //追記(バリデーション)
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -29,7 +30,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Company::all();
+        return view('create')
+        ->with('companies',$companies);
     }
 
     /**
@@ -38,9 +41,25 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request) //store(Request $request)→ProductRequestに変える
     {
-        //
+        DB::beginTransaction();
+
+        try{
+            $imagePath = null;
+            if ($request->hasFile('img_path')) {
+                $imagePath = $request->file('img_path')->store('images/products', 'public');
+            }
+            
+            $product = new Product();
+            $product->registProduct($request,$imagePath);
+            DB::commit();
+        } catch (\Exception $e){
+            DB::rollback();
+            return back();
+        }
+
+        return redirect(route('product.create'));
     }
 
     /**

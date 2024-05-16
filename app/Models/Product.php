@@ -32,4 +32,16 @@ class Product extends Model
             ->orderBy('products.created_at', 'desc');
     }
 
+    public function registProduct($data,$imagePath)
+    {
+        DB::table('products')->insert([
+            'company_id' => $data['company_id'],
+            'product_name' => $data['product_name'],
+            'price' => $data['price'],
+            'stock' => $data['stock'],
+            'comment' => $data['comment'],
+            'img_path' => $imagePath,
+        ]);
+    }    
+
 }
