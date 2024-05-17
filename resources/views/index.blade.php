@@ -8,10 +8,6 @@
       <h2 style="font-size:1.5rem;">商品一覧画面</h2>
     </div>
 
-    <div class="text-right"> <!--あとでいじるかも　text-end-->
-      <a class="btn btn-warning" href="{{ route('product.create') }}">新規登録</a>
-    </div>
-
   </div>
 </div>
 
@@ -30,8 +26,9 @@
       <th>価格</th>
       <th>在庫数</th>
       <th>メーカー名</th>
-      <th></th>
-      <th></th>
+      <th> <!--あとでいじるかも　text-end-->
+      <a class="btn btn-warning" href="{{ route('product.create') }}">新規登録</a>
+      </th>
     </tr>
   </thead>
 
@@ -46,8 +43,17 @@
       <td style="text-align:right">{{ $product->price }}円</td>
       <td style="text-align:right">{{ $product->stock }}</td>
       <td>{{ $product->company_name }}</td>
+
       <td style="text-align:center">
         <a class="btn btn-info" href="{{ route('product.show',$product->id) }}">詳細</a>
+
+      <td style="text-align:center">
+        <form action="{{ route('product.destroy',$product->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("削除しますか？");'>削除</button>
+        </form>
+      </td>
     </tr>
   </tbody>
   @endforeach

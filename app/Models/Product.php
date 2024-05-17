@@ -55,4 +55,9 @@ class Product extends Model
             'img_path' => $imagePath,
         ]);
     }
+
+    public function deleteProduct()
+    {
+        DB::table('products')->where('id', $this->id)->delete();
+    }
 }
