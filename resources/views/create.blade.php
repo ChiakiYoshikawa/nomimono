@@ -9,7 +9,7 @@
         </div>
 
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ url('/nomimono') }}">戻る</a>
+            <a class="btn btn-info" href="{{ url('/nomimono') }}">戻る</a>
         </div>
 
     </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             <input type="text" name="product_name" class="form-control" placeholder="商品名" value="{{ old('product_name') }}">
             @if($errors->has('product_name'))
-                <p>{{ $errors->first('product_name') }}</p>
+                <span style="color:red;">{{ $errors->first('product_name') }}</span>
             @endif
         </div>
     </div>
@@ -35,7 +35,7 @@
         <div class=“form-group”>
             <input type="text" name="price" class="form-control" placeholder="価格" value="{{ old('price') }}">
             @if($errors->has('price'))
-                <p>{{ $errors->first('price') }}</p>
+                <span style="color:red;">{ $errors->first('price') }}</span>
             @endif
         </div>
     </div>
@@ -44,7 +44,7 @@
         <div class="form-group">
             <input type="text" name="stock" class="form-control" placeholder="在庫数" value="{{ old('stock') }}">
             @if($errors->has('stock'))
-                <p>{{ $errors->first('stock') }}</p>
+                <span style="color:red;">{{ $errors->first('stock') }}</span>
             @endif
         </div>
     </div>
@@ -53,7 +53,7 @@
         <div class=“form-group”>
             <input type="text" name="comment" class="form-control" placeholder="コメント" value="{{ old('comment') }}">
             @if($errors->has('comment'))
-                <p>{{ $errors->first('comment') }}</p>
+                <span style="color:red;">{{ $errors->first('comment') }}</span>
             @endif
         </div>
     </div>
@@ -63,11 +63,11 @@
             <select name="company_id" class="form-select">
                 <option value="">分類を選択してください</option>
                 @foreach($companies as $company)
-                <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                  <option value="{{ $company->id }}">{{ $company->company_name }}</option>
                 @endforeach
             </select>
             @if($errors->has('company_id'))
-                <p>{{ $errors->first('company_id') }}</p>
+                <span style="color:red;">{{ $errors->first('company_id') }}</span>
             @endif
         </div>
     </div>
@@ -76,7 +76,7 @@
         <div class="form-group">
             <input type="file" name="img_path" class="form-control-file">
             @if($errors->has('img_path'))
-                <p>{{ $errors->first('img_path') }}</p>
+                <span style="color:red;">{{ $errors->first('img_path') }}</span>
             @endif
         </div>
     </div>

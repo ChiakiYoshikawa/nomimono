@@ -30,6 +30,8 @@
       <th>価格</th>
       <th>在庫数</th>
       <th>メーカー名</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -44,6 +46,8 @@
       <td style="text-align:right">{{ $product->price }}円</td>
       <td style="text-align:right">{{ $product->stock }}</td>
       <td>{{ $product->company_name }}</td>
+      <td style="text-align:center">
+        <a class="btn btn-info" href="{{ route('product.show',$product->id) }}">詳細</a>
     </tr>
   </tbody>
   @endforeach
