@@ -11,11 +11,33 @@
   </div>
 </div>
 
-@if(session('success'))
-  <div class="alert alert-success">
-    {{ session('success') }}
-  </div>
-@endif
+<div>
+    <form action="{{ route('product.search') }}" method="GET">
+        @csrf
+
+        <input type="text" name="keyword" placeholder="商品名">
+
+        <select name="company_id">
+            <option value="">分類を選択してください</option>
+            @foreach($companies as $company)
+                <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+            @endforeach
+        </select>
+
+        <div>
+            <input type="number" name="price_min" placeholder="最低価格" min="0">
+            <input type="number" name="price_max" placeholder="最高価格" min="0">
+        </div>
+
+        <div>
+            <input type="number" name="stock_min" placeholder="最低在庫数" min="0">
+            <input type="number" name="stock_max" placeholder="最高在庫数" min="0">
+        </div>
+
+        <input type="submit" value="検索">
+    </form>
+</div>
+
 
 <table class="table table-bordered">
   <thead>

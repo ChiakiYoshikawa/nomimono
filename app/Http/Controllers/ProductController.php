@@ -59,7 +59,7 @@ class ProductController extends Controller
             return back();
         }
 
-        return redirect(route('product.create'));
+        return redirect(route('index'));
     }
 
     /**
@@ -121,8 +121,6 @@ class ProductController extends Controller
         }
     }
     
-    
-
     /**
      * Remove the specified resource from storage.
      *
@@ -135,4 +133,37 @@ class ProductController extends Controller
         return redirect()->route('index')
         ->with('success',$product->name . 'を削除しました');
     }
+
+    public function search(Request $request){
+        $query = (new Product())->getProductsQuery();
+        $companies = Company::all();
+
+        if ($request->filled('keyword')){
+            $query->where('product_name', 'like', '%' . $request->input('keyword') . '%');
+        }
+
+        if ($request->filled('company_id')){
+            $query->where('company_id', $request->input('company_id'));
+        }
+
+        if ($request->filled('price_min')){
+            $query->where('price', '>=', $request->input('price_min'));
+        }
+
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', $request->input('price_max'));
+        }
+
+        if ($request->filled('stock_min')){
+            $query->where('stock', '>=', $request->input('stock_min'));
+        }
+
+        if ($request->filled('stock_max')){
+            $query->where('stock', '<=', $request->input('stock_max'));
+        }
+
+        $products = $query->paginate(5)->appends($request->all()); //appendメソッドを追加するとページネーションを残したまま検索結果を表示することができる
+        return view('index', compact('products', 'companies'));
+    }
+
 }

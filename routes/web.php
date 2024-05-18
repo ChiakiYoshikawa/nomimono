@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController; //これ追加したけどなくても動く、念の為つけておく。
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,4 @@ Route::get('/product/show/{product}', [App\Http\Controllers\ProductController::c
 Route::get('/product/edit/{product}',[App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit');
 Route::put('/product/edit/{product}',[App\Http\Controllers\ProductController::class, 'update'])->name('product.update');
 Route::delete('/product/{product}',[App\Http\Controllers\ProductController::class, 'destroy'])->name('product.destroy');
+Route::get('/product/search',[App\Http\Controllers\ProductController::class, 'search'])->name('product.search');
